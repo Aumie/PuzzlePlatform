@@ -20,10 +20,12 @@ public:
 	virtual void Init() override;
 
 	UFUNCTION(Exec)
-	void Host() override;
+	void Host(FString ServerName) override;
 	
 	UFUNCTION(Exec)
 	void Join(uint32 Index) override;
+
+	void StartSession();
 
 	UFUNCTION(BlueprintCallable)
 	void LoadMenu();
@@ -46,6 +48,9 @@ private:
 	void OnDestroySessionComplete(FName SessionName, bool Success);
 	void OnFindSessionComplete(bool Success);
 	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
+	void OnNetworkFailure(UWorld* World, UNetDriver* NetDriver, ENetworkFailure::Type FailureType\
+							, const FString& ErrorString);
 
+	FString DesiredServerName;
 	void CreateSession();
 };
